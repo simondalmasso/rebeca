@@ -24,14 +24,23 @@ Canonical repository: `simondalmasso/rebeca-sf`
 - ARQ does not wait for AUD during internal construction of an approved tranche.
 - AUD does not intervene until ARQ publishes a material, auditable checkpoint.
 - Deploy should be automated from the repository when practical, with Cloudflare as the primary production target.
-- Orders live in Google Drive and carry a sequence number.
-- Material checkpoints and evidence are documented in this repository.
+- Numbered orders and material checkpoints are documented in the canonical repository; Google Drive may additionally hold historical or mirrored authority documents.
+- Evidence required by an order is committed under the repository evidence paths defined by that order.
 
-## Current canonical order
+## Current canonical execution order
+
+`ORDER-001 — REBECA-SF MASTER IMPLEMENTATION ORDER`
+Repository path: `docs/orders/ORDER-001.md`
+
+`ORDER-001` authorizes ARQ to build the complete release candidate, including a gated Cloudflare release-candidate deployment, and requires ARQ to return control to AUD for independent audit before merge/final production cutover.
+
+## Historical authority
 
 `AUD-001 — Constitución y Arquitectura V1`
 Google Drive: https://docs.google.com/document/d/1CyCkFoVxGA0MSVU5O8l1_mel5Rn4ym1GRPO_A-Paoms/edit
 
+`ORDER-001` extends and supersedes `AUD-001` for implementation while preserving the role separation and evidence-before-verdict rules.
+
 ## Current state
 
-Repository bootstrap only. Product implementation has not been authorized from the AUD role.
+The repository has been bootstrapped and the implementation tranche is now authorized exclusively by `ORDER-001`. AUD remains read/audit/design authority; ARQ owns implementation until the final material checkpoint is published.

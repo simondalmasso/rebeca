@@ -4,7 +4,7 @@
 - PROJECT: REBECA-SF
 - PURPOSE: mobile-first visual ecommerce proposal for Rebeca Santa Fe; catalog/PDP/cart/admin; checkout ends in WhatsApp only; no payment gateway/card collection.
 - CANONICAL REPO: https://github.com/simondalmasso/rebeca
-- LEGACY SOURCE: https://gitlab.com/simondalmasso/rebeca-sf
+- DOWNSTREAM MIRROR: https://gitlab.com/simondalmasso/rebeca-sf (GitHub remains source of truth)
 - LIVE TARGET: https://rebeca-sf.simondalmasso44.workers.dev/
 - FIREBASE MIRROR TARGET: https://rebeca-sf.web.app/
 - LIVE STATUS: release completion is NOT verified; no exact-SHA health/deploy evidence is committed.
@@ -25,7 +25,8 @@
 - Legacy green pipeline: https://gitlab.com/simondalmasso/rebeca-sf/-/pipelines/2861850173
 
 ## CURRENT STATE
-- GitHub is now canonical; the active GitLab feature snapshot was migrated byte-for-byte.
+- GitHub is canonical; the active GitLab feature snapshot was migrated byte-for-byte.
+- GitLab is now an automatic downstream mirror: DESKTOP-DPH3941 runs `C:\\GPT-SANDBOX\\rebeca-github-to-gitlab-mirror.ps1` every 5 minutes. The task syncs GitHub branches/tags to GitLab using the existing Git credential manager; GitLab-only legacy refs are intentionally preserved.
 - Runtime architecture is Workers Static Assets + Hono + Workers KV; D1/R2 release bindings are gone.
 - `wrangler.toml` contains REBECA-only KV bindings:
   - `STORE_KV=616f4a65e5ab4629a8bb281ecc18a22c`
@@ -61,6 +62,7 @@ Finish ORDER-002 from Cloudflare Access onward on GitHub, then deploy and produc
 - Access configuration/authorization is the unresolved infra step.
 - GitHub repo is public whereas legacy GitLab source was private; secret scan was green on the identical code snapshot, but never commit credentials/tokens.
 - No GitHub CI exists yet; do not mislabel legacy GitLab CI as GitHub CI.
+- Mirror automation is host-dependent: it runs while DESKTOP-DPH3941 is available and catches up when the scheduled task can run.
 
 ## DO_NOT_TOUCH
 - No ZUNGUN/SENEX/VOY/SOS/ATM/MONEYKILLER or other project resources.
@@ -72,7 +74,7 @@ Finish ORDER-002 from Cloudflare Access onward on GitHub, then deploy and produc
 
 ## AUTHORITIES / GATES
 - ORDER-002 remains release/product authority except repository-location/CI references are superseded by this GitHub migration.
-- GitHub `main` is canonical source; legacy GitLab MR/pipeline are evidence only.
+- GitHub `main` is canonical source; GitLab is downstream mirror plus historical evidence. Do not develop directly in GitLab.
 - VERIFY>ASSUME, EVIDENCE>CLAIM, exact deployed SHA required.
 - Release gate: Access protected correctly + fresh tests + deployed `/api/health.sha == working HEAD` + remote public/admin/media/import acceptance + evidence report.
 

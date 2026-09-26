@@ -4,7 +4,7 @@
 - PROJECT: REBECA-SF
 - PURPOSE: finish and deploy the existing ecommerce proposal; visual storefront + catalog/PDP/cart/admin; checkout is WhatsApp handoff only; no payment gateway.
 - CANONICAL REPO: https://github.com/simondalmasso/rebeca
-- LEGACY SOURCE: https://gitlab.com/simondalmasso/rebeca-sf (read-only historical source)
+- DOWNSTREAM MIRROR: https://gitlab.com/simondalmasso/rebeca-sf (automatic; do not develop there)
 - LIVE TARGET: https://rebeca-sf.simondalmasso44.workers.dev/
 - FIREBASE MIRROR: https://rebeca-sf.web.app/ (non-blocking, after Cloudflare)
 
@@ -26,6 +26,7 @@
 
 ## CURRENT STATE
 - Work from GitHub only.
+- GitLab is an automatic downstream mirror. Scheduled task `REBECA GitHub to GitLab Mirror` runs every 5 minutes on DESKTOP-DPH3941 and executes `C:\\GPT-SANDBOX\\rebeca-github-to-gitlab-mirror.ps1`; GitLab-only legacy refs are preserved.
 - KV runtime is implemented; no D1/R2 release dependency.
 - `wrangler.toml` already binds:
   - `STORE_KV=616f4a65e5ab4629a8bb281ecc18a22c`
@@ -59,6 +60,7 @@ Cloudflare Access -> fresh verification -> exact-SHA canonical deploy -> remote 
 - BLOCKED_REAL=NO at canon time.
 - If Access cannot be configured, preserve exact provider error/permission evidence; do not invent a blocker.
 - Public GitHub repo: never commit auth tokens, Access secrets, cookies or OAuth material.
+- Mirror automation is host-dependent: if DESKTOP-DPH3941 is offline, GitLab catches up only when the scheduled task runs again.
 
 ## DO_NOT_TOUCH
 - Other projects/resources.
@@ -66,7 +68,7 @@ Cloudflare Access -> fresh verification -> exact-SHA canonical deploy -> remote 
 - Payment gateway.
 - Fake WhatsApp destination.
 - Unrelated redesign/refactor.
-- Legacy GitLab branch except read-only evidence.
+- GitLab mirror except read-only evidence; never implement directly there.
 - GitHub `main` directly after work starts; use a feature branch/PR.
 
 ## AUTHORITIES / GATES

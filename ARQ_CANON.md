@@ -13,7 +13,7 @@
 - START: latest GitHub `main` containing ORDER-003
 - CREATE: `feat/order-003-final-close`
 - PR: Draft -> `main`, never merge before AUD
-- GitHub->GitLab mirror is server-side and already proven.
+- GitHub->GitLab mirror is server-side. Latest run `36266321977` failed at GitLab authentication because `GITLAB_MIRROR_TOKEN` is expired/invalid; rotate the GitHub Actions secret with a durable GitLab credential limited to repository write before relying on the mirror.
 
 ## CURRENT STATE
 - preserve React 19 + Vite + React Router + Hono + Workers KV.
@@ -30,7 +30,7 @@
 - D1/R2 cleanup
 - demo catalog/media
 - GitHub migration
-- automatic server-side GitHub->GitLab mirror
+- server-side GitHub->GitLab mirror architecture; current credential rotation pending
 - research shortlist
 
 ## ACTIVE WORK
@@ -61,10 +61,10 @@ Everything explicitly listed as mandatory in ORDER-003.
 - remote public/admin/media/import acceptance mandatory.
 
 ## WHERE_TO_RESUME
-Start ORDER-003 at Phase A from latest GitHub main. Do not redo migration, KV provisioning, seed or mirror.
+Start ORDER-003 at Phase A from latest GitHub main. First repair the server-side mirror credential and prove SHA equality. Do not redo migration, KV provisioning, seed or mirror architecture.
 
 ## WHAT_TO_DO_NOW
-Read ORDER-003 once, then execute it continuously. Create `feat/order-003-final-close` and Draft PR; audit/refine the existing UI to REBECA_EDITORIAL_COMMERCE using the bounded references; add current GitHub CI; finish Access; deploy exact final SHA; run all remote acceptance; commit `docs/evidence/ORDER-003/REPORT.md`; redeploy the definitive evidence HEAD; verify health SHA and GitLab mirror; return READY_FOR_FINAL_AUDIT.
+Read ORDER-003 once, then execute it continuously. First rotate `GITLAB_MIRROR_TOKEN` in GitHub Actions with a durable GitLab repository-write credential and rerun the mirror until GitHub/GitLab main SHA match. Then create `feat/order-003-final-close` and Draft PR; audit/refine the existing UI to REBECA_EDITORIAL_COMMERCE using the bounded references; add current GitHub CI; finish Access; deploy exact final SHA; run all remote acceptance; commit `docs/evidence/ORDER-003/REPORT.md`; redeploy the definitive evidence HEAD; verify health SHA and GitLab mirror; return READY_FOR_FINAL_AUDIT.
 
 ## WHAT_NOT_TO_REPEAT
 - architecture research

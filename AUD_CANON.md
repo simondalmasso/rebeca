@@ -12,7 +12,7 @@
 - LAST_VERIFIED: 2026-09-26
 - CANONICAL BRANCH: main
 - ORDER-003 issued from: `3f984da1b7427cc20dfa2083f9b6b1de26a1669a`
-- GitHub->GitLab server-side mirror: proven healthy before ORDER-003.
+- GitHub->GitLab mirror architecture is server-side, but latest run `36266321977` failed because `GITLAB_MIRROR_TOKEN` is expired/invalid. Rotate the GitHub Actions secret with a durable GitLab repository-write credential; do not fall back to a host/local mirror.
 - Legacy implementation source pipeline: GitLab #39 SUCCESS on migrated code snapshot.
 
 ## CURRENT STATE
@@ -29,11 +29,11 @@
 - KV persistence pivot; no release D1/R2 dependency
 - demo catalog/media/provenance
 - exact migration to GitHub
-- server-side GitHub->GitLab mirror
+- server-side GitHub->GitLab mirror architecture (credential rotation now required)
 - research shortlist for fashion UX/code patterns
 
 ## ACTIVE WORK
-ORDER-003 final product + release closure.
+ORDER-003 final product + release closure; first repair server-side mirror credential, then continue.
 
 ## PENDING
 - branch `feat/order-003-final-close` + Draft GitHub PR
@@ -68,4 +68,4 @@ ORDER-003 final product + release closure.
 - Draft PR stays unmerged until AUD PASS.
 
 ## NEXT EXACT ACTION
-Open ARQ from ARQ_CANON.md and execute ORDER-003 continuously to READY_FOR_FINAL_AUDIT.
+Open ARQ from ARQ_CANON.md; first repair `GITLAB_MIRROR_TOKEN` and prove GitHub/GitLab SHA equality, then execute ORDER-003 continuously to READY_FOR_FINAL_AUDIT.

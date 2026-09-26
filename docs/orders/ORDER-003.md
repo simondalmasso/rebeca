@@ -54,7 +54,7 @@ The mirror is already proven and must remain server-side. Never add a PC, Remote
 
 At order issue time:
 - GitHub main: `3f984da1b7427cc20dfa2083f9b6b1de26a1669a`
-- GitHub -> GitLab mirror: proven
+- GitHub -> GitLab mirror workflow exists server-side. The ORDER-003 issuance push exposed an expired/invalid `GITLAB_MIRROR_TOKEN`: GitHub Actions run `36266321977` failed at GitLab authentication. This is a credential-rotation defect, not a reason to add a host-based mirror.
 - STORE_KV: `616f4a65e5ab4629a8bb281ecc18a22c`
 - MEDIA_KV: `a83b4db8a6ad4b3e91dbe900db088cdc`
 - deterministic 14-product / 14-media seed: committed
@@ -207,6 +207,7 @@ Do not branch from legacy GitLab work. Do not modify the old GitLab MR except as
 ## 6. PHASE A — RECONSTRUCT + BASELINE
 
 Before changing code:
+0. repair the server-side mirror credential: replace `GITLAB_MIRROR_TOKEN` with a durable GitLab credential scoped only as needed for repository write (`write_repository`), rerun `.github/workflows/mirror-gitlab.yml`, and prove GitHub `main` == GitLab `main`; never commit or print the token and never add a PC/local runtime dependency
 1. fetch latest GitHub `main`
 2. verify this ORDER-003 exists
 3. verify mirror workflow exists

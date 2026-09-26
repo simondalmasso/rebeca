@@ -1,0 +1,7 @@
+import type { PublicProduct } from '../../shared/catalog-contract';
+export type PublicSettings={storeName:string;instagramUrl:string;whatsappNumber:string|null;deliveryLabel:string;pickupLabel:string;demoMode:boolean;catalogRevision:number}; export type CatalogResponse={products:PublicProduct[];categories:Array<{id:string;slug:string;name:string;description:string|null;sortOrder:number}>};
+export function apiBase(){const configured=import.meta.env.VITE_API_BASE?.replace(/\/$/,'');if(configured)return configured;if(window.location.hostname.endsWith('.web.app'))return'https://rebeca-sf.simondalmasso44.workers.dev';return'';}
+async function parseError(response:Response){const body=await response.json().catch(()=>({}));return (body as {error?:{message?:string;code?:string}}).error?.message??(body as {error?:{code?:string}}).error?.code??`HTTP ${response.status}`;}
+export async function api<T>(path:string,init?:RequestInit){const r=await fetch(`${apiBase()}${path}`,{cache:'no-store',...init});if(!r.ok)throw new Error(await parseError(r));return r.json() as Promise<T>;}
+export function adminInit(init:RequestInit={}):RequestInit{const headers=new Headers(init.headers);if(init.body&&!headers.has('content-type')&&typeof init.body==='string')headers.set('content-type','application/json');if(import.meta.env.MODE==='test')headers.set('x-test-admin','1');return{...init,headers,credentials:'same-origin'};}
+export async function adminApi<T>(path:string,init?:RequestInit){return api<T>(path,adminInit(init));}

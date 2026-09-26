@@ -1,0 +1,22 @@
+name = "rebeca-sf"
+main = "worker/index.ts"
+compatibility_date = "2026-09-16"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[kv_namespaces]]
+binding = "STORE_KV"
+id = "616f4a65e5ab4629a8bb281ecc18a22c"
+
+[[kv_namespaces]]
+binding = "MEDIA_KV"
+id = "a83b4db8a6ad4b3e91dbe900db088cdc"
+
+[vars]
+ENVIRONMENT = "release"
+ADMIN_ORIGIN = "https://rebeca-sf.simondalmasso44.workers.dev"
+PUBLIC_ORIGINS = "https://rebeca-sf.web.app,https://rebeca-sf.simondalmasso44.workers.dev"
+BUILD_SHA = "UNSET"

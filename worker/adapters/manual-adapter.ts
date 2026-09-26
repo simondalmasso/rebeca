@@ -1,0 +1,1 @@
+import { canonicalProductSchema,type CanonicalProductInput,type CatalogSourceAdapter } from '../../shared/catalog-contract'; export class ManualAdapter implements CatalogSourceAdapter<unknown>{async parse(input:unknown):Promise<CanonicalProductInput[]>{return[canonicalProductSchema.parse(input)];}}

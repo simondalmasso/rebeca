@@ -1,0 +1,52 @@
+{
+  "name": "rebeca-sf",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "dev:web": "vite",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format:check": "node scripts/format-check.mjs",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test": "npm run test:unit && npm run test:integration",
+    "build": "vite build && wrangler deploy --dry-run --outdir .wrangler-dry",
+    "e2e": "playwright test",
+    "secret:scan": "node scripts/secret-scan.mjs",
+    "audit:prod": "npm audit --omit=dev --audit-level=high",
+    "deploy": "wrangler deploy",
+    "e2e:prepare": "node -e \"import('node:fs').then(fs=>fs.rmSync('.wrangler/e2e',{recursive:true,force:true}))\" && vite build --mode test",
+    "e2e:server": "npm run e2e:prepare && wrangler dev --config wrangler.e2e.toml --local --persist-to .wrangler/e2e --port 8787 --var ENVIRONMENT:test --var TEST_AUTH_ENABLED:1 --var ADMIN_ORIGIN:http://127.0.0.1:8787 --var PUBLIC_ORIGINS:http://127.0.0.1:8787 --var BUILD_SHA:e2e"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "5.2.6",
+    "hono": "4.13.8",
+    "jose": "6.1.0",
+    "lucide-react": "0.544.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "react-router-dom": "7.18.4",
+    "zod": "4.1.8"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@cloudflare/workers-types": "4.20260702.1",
+    "@eslint/js": "9.35.0",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.3.1",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "@vitejs/plugin-react": "5.0.2",
+    "eslint": "9.35.0",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "16.3.0",
+    "prettier": "3.6.2",
+    "typescript": "5.9.2",
+    "typescript-eslint": "8.43.0",
+    "vite": "7.1.5",
+    "vitest": "3.2.4",
+    "wrangler": "4.35.0"
+  }
+}

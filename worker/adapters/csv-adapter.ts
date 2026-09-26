@@ -1,0 +1,1 @@
+import { parseCsvCatalog,type CanonicalProductInput,type CatalogSourceAdapter } from '../../shared/catalog-contract'; export class CsvAdapter implements CatalogSourceAdapter<string>{parse(input:string):Promise<CanonicalProductInput[]>{return parseCsvCatalog(input);}}

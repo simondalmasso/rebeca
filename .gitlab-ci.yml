@@ -1,0 +1,126 @@
+image: node:24-bookworm
+
+stages: [verify, browser, infra, deploy, smoke]
+
+cache:
+  key: npm-$CI_COMMIT_REF_SLUG
+  paths: [.npm/]
+
+.default_node:
+  before_script:
+    - npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+    - npm ci --cache .npm --prefer-offline
+
+quality:
+  extends: .default_node
+  stage: verify
+  script:
+    - npm run typecheck
+    - npm run lint
+    - npm run format:check
+
+unit:
+  extends: .default_node
+  stage: verify
+  script: npm run test:unit
+
+integration:
+  extends: .default_node
+  stage: verify
+  script: npm run test:integration
+
+build:
+  extends: .default_node
+  stage: verify
+  script: npm run build
+  artifacts:
+    paths: [dist/]
+    expire_in: 1 week
+
+security:
+  extends: .default_node
+  stage: verify
+  script:
+    - npm run secret:scan
+    - npm run audit:prod
+
+e2e:
+  extends: .default_node
+  stage: browser
+  needs: [quality, unit, integration, build, security]
+  before_script:
+    - npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+    - npm ci --cache .npm --prefer-offline
+    - npx playwright install --with-deps chromium
+  script: npm run e2e
+  artifacts:
+    when: always
+    paths: [playwright-report/, test-results/]
+    expire_in: 1 week
+
+lighthouse:
+  extends: .default_node
+  stage: browser
+  needs: [quality, unit, integration, build, security]
+  before_script:
+    - npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+    - npm ci --cache .npm --prefer-offline
+    - npx playwright install --with-deps chromium
+  script:
+    - mkdir -p lighthouse
+    - npm run e2e:server > lighthouse/server.log 2>&1 & echo $! > lighthouse/server.pid
+    - timeout 60 sh -c 'until node -e "fetch(\"http://127.0.0.1:8787/api/health\").then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"; do sleep 1; done'
+    - node scripts/seed-lighthouse.mjs
+    - export CHROME_PATH="$(node --input-type=module -e "import { chromium } from 'playwright'; console.log(chromium.executablePath())")"
+    - npx --yes lighthouse@13.4.1 http://127.0.0.1:8787/ --chrome-path="$CHROME_PATH" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=lighthouse/lighthouse-1.json --quiet
+    - npx --yes lighthouse@13.4.1 http://127.0.0.1:8787/ --chrome-path="$CHROME_PATH" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=lighthouse/lighthouse-2.json --quiet
+    - npx --yes lighthouse@13.4.1 http://127.0.0.1:8787/ --chrome-path="$CHROME_PATH" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=lighthouse/lighthouse-3.json --quiet
+    - node scripts/assert-lighthouse.mjs lighthouse/lighthouse-1.json lighthouse/lighthouse-2.json lighthouse/lighthouse-3.json
+  after_script:
+    - if [ -f lighthouse/server.pid ]; then kill "$(cat lighthouse/server.pid)" || true; fi
+  artifacts:
+    when: always
+    paths: [lighthouse/]
+    expire_in: 1 week
+
+cloudflare_probe:
+  extends: .default_node
+  stage: infra
+  needs: [e2e, lighthouse]
+  when: manual
+  allow_failure: true
+  script:
+    - npx wrangler@4.133.0 whoami
+
+deploy_cloudflare:
+  extends: .default_node
+  stage: deploy
+  resource_group: rebeca-sf-release
+  needs:
+    - job: e2e
+    - job: lighthouse
+    - job: build
+      artifacts: true
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feat/order-001-rebeca-v1" && $CLOUDFLARE_API_TOKEN && $CLOUDFLARE_ACCOUNT_ID && $CF_ACCESS_TEAM_DOMAIN && $CF_ACCESS_AUDS'
+      when: manual
+    - when: never
+  allow_failure: false
+  environment:
+    name: release
+    url: https://rebeca-sf.simondalmasso44.workers.dev
+  script:
+    - npx wrangler@4.133.0 deploy --var "ENVIRONMENT:release" --var "ADMIN_ORIGIN:https://rebeca-sf.simondalmasso44.workers.dev" --var "PUBLIC_ORIGINS:https://rebeca-sf.web.app,https://rebeca-sf.simondalmasso44.workers.dev" --var "BUILD_SHA:$CI_COMMIT_SHA" --var "CF_ACCESS_TEAM_DOMAIN:$CF_ACCESS_TEAM_DOMAIN" --var "CF_ACCESS_AUDS:$CF_ACCESS_AUDS"
+
+smoke_cloudflare:
+  extends: .default_node
+  stage: smoke
+  needs: [deploy_cloudflare]
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "feat/order-001-rebeca-v1" && $CLOUDFLARE_API_TOKEN && $CLOUDFLARE_ACCOUNT_ID && $CF_ACCESS_TEAM_DOMAIN && $CF_ACCESS_AUDS'
+      when: on_success
+    - when: never
+  variables:
+    REBECA_RELEASE_URL: https://rebeca-sf.simondalmasso44.workers.dev
+  script:
+    - node scripts/smoke-cloudflare.mjs

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.wrangler/
+.wrangler-dry/
+playwright-report/
+test-results/
+coverage/
+.env*
+!.env.example

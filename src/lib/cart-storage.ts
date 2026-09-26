@@ -1,0 +1,3 @@
+import type { CartLine } from '../../shared/cart'; const KEY='rebeca-cart',VERSION=1; type Stored={version:number;lines:CartLine[]};
+export function loadCart(storage:Storage=localStorage){try{const raw=storage.getItem(KEY);if(!raw)return[];const p=JSON.parse(raw) as Partial<Stored>;if(p.version!==VERSION||!Array.isArray(p.lines)){storage.removeItem(KEY);return[];}return p.lines.filter(l=>l&&typeof l.key==='string'&&Number.isInteger(l.quantity)&&l.quantity>0);}catch{storage.removeItem(KEY);return[];}}
+export function saveCart(lines:CartLine[],storage:Storage=localStorage){storage.setItem(KEY,JSON.stringify({version:VERSION,lines} satisfies Stored));} export function clearCart(storage:Storage=localStorage){storage.removeItem(KEY);} export const CART_STORAGE_KEY=KEY;

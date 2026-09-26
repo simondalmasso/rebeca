@@ -1,0 +1,343 @@
+{
+  "generated_at": "2026-09-17T15:20:00Z",
+  "instagram_account": "https://www.instagram.com/rebeca_santafee/",
+  "policy": "Public Instagram imagery is preferred when independently accessible; this manifest currently contains illustrative products only and does not claim confirmed Rebeca inventory.",
+  "products": [
+    {
+      "slug": "top-alba",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/top-alba.webp",
+          "sha256": "ee85cd0678ac84e42f628d539bd39a43b19c281b5f89a65f6f282811d539870b",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "remera-nube",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/remera-nube.webp",
+          "sha256": "25915c3c1286b727e805ca001462318b78785651bbbe8d75b9c5366344bc60a2",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "jean-roma",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/jean-roma.webp",
+          "sha256": "ea8ef100fa92e9b0a9cd3a2edd053a6e3da70a328664f91de16d2336f698c3ff",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "pantalon-marea",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/pantalon-marea.webp",
+          "sha256": "46568392a9e7ac69ca792f308110d65dbb0e49ea322f64fe5d7a0e3de0a173e3",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "camisa-lino",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/camisa-lino.webp",
+          "sha256": "fa05a67db9b4d2aa3517cf70df73fab21a3eecce5090390342a2dda362216394",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "camisa-arena",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/camisa-arena.webp",
+          "sha256": "94e8d1cc11be4fa26401aee139263716258fe129f251fda76e02b8ebbec82b1d",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "sweater-bruma",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/sweater-bruma.webp",
+          "sha256": "b15f12aaa44bf7cdc2b53328502499646b43b16bda414f9e72977686b984f30d",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "buzo-niebla",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/buzo-niebla.webp",
+          "sha256": "b910b3c4dc629a1e1a16cc555f157b2f40086549e7a8fc3c6c30573b199e926a",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "vestido-lila",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/vestido-lila.webp",
+          "sha256": "93051820994ca8992a2b9527c9f290a14ec2d5b0b124067d37253f31d4cb5947",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "falda-siena",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/falda-siena.webp",
+          "sha256": "5b7afc9e6acb18115d457a168f582b1c258d3d5abe9be5d575eaa1f4de315948",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "top-vela",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/top-vela.webp",
+          "sha256": "929f8d4e6c5099400a8a1f1208d68b54ebf8c42482579f54541964af4d2f94d2",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "jean-capri",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/jean-capri.webp",
+          "sha256": "cfd28130b1f1c73fb05b1b2256bd5c7a76726c71ddcb9dcbc20312e17010bced",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "vestido-mora",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/vestido-mora.webp",
+          "sha256": "fa70688108777c1a412760bd7ab155049f1a2757829a49cbc3b652cf7181cc68",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    },
+    {
+      "slug": "falda-sol",
+      "source_kind": "demo_generated",
+      "source_url": null,
+      "captured_at": "2026-09-16T20:08:00Z",
+      "media": [
+        {
+          "source_kind": "demo_generated",
+          "source_file": "data/demo-media-source/falda-sol.webp",
+          "sha256": "2b276f5d1f7e2004b2a8dfd7e951b2d2b1bde7ac8269293b474c0723fcdb17c9",
+          "width": 800,
+          "height": 1000,
+          "r2_key_original": null,
+          "r2_key_small": null,
+          "r2_key_large": null
+        }
+      ],
+      "observed": {
+        "name": false,
+        "price": false,
+        "variants": false
+      },
+      "inferred": true
+    }
+  ]
+}

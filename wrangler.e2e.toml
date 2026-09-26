@@ -1,0 +1,16 @@
+name = "rebeca-sf-e2e"
+main = "worker/index.ts"
+compatibility_date = "2026-09-16"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[kv_namespaces]]
+binding = "STORE_KV"
+id = "00000000000000000000000000000000"
+
+[[kv_namespaces]]
+binding = "MEDIA_KV"
+id = "11111111111111111111111111111111"

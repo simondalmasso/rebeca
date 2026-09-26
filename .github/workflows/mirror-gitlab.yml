@@ -1,0 +1,69 @@
+name: Mirror to GitLab
+
+on:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gitlab-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check mirror credential
+        env:
+          GITLAB_MIRROR_TOKEN: ${{ secrets.GITLAB_MIRROR_TOKEN }}
+        run: |
+          test -n "$GITLAB_MIRROR_TOKEN" || {
+            echo "::error::Missing repository secret GITLAB_MIRROR_TOKEN"
+            exit 1
+          }
+
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Mirror branches and tags to GitLab
+        env:
+          GITLAB_MIRROR_TOKEN: ${{ secrets.GITLAB_MIRROR_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          ASKPASS="$RUNNER_TEMP/gitlab-askpass.sh"
+          cat > "$ASKPASS" <<'EOF'
+          #!/usr/bin/env sh
+          case "$1" in
+            *Username*) printf '%s\n' 'oauth2' ;;
+            *Password*) printf '%s\n' "$GITLAB_MIRROR_TOKEN" ;;
+            *) exit 1 ;;
+          esac
+          EOF
+          chmod 700 "$ASKPASS"
+
+          export GIT_ASKPASS="$ASKPASS"
+          export GIT_TERMINAL_PROMPT=0
+
+          git remote remove gitlab 2>/dev/null || true
+          git remote add gitlab https://gitlab.com/simondalmasso/rebeca-sf.git
+          git fetch --force --prune origin '+refs/heads/*:refs/remotes/origin/*' '+refs/tags/*:refs/tags/*'
+
+          for ref in $(git for-each-ref --format='%(refname:strip=3)' refs/remotes/origin | grep -v '^HEAD$'); do
+            git push gitlab "refs/remotes/origin/$ref:refs/heads/$ref"
+          done
+
+          git push gitlab --tags
+
+          source_sha="$(git rev-parse refs/remotes/origin/main)"
+          target_sha="$(git ls-remote gitlab refs/heads/main | awk '{print $1}')"
+          test "$source_sha" = "$target_sha"
+          echo "MIRROR_SYNC=PASS SHA=$source_sha"

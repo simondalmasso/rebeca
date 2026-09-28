@@ -218,7 +218,7 @@
 .placeholder span {
   letter-spacing: 0.25em;
   font-weight: 800;
-  color: rgba(17, 17, 17, 0.55);
+  color: #493941;
 }
 
 .hero-copy {
@@ -419,6 +419,10 @@
   padding: 56px var(--gutter);
   background: var(--accent-soft);
   text-align: center;
+}
+
+.instagram-callout .overline {
+  color: #554149;
 }
 
 .instagram-callout h2 {

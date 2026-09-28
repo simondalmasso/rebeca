@@ -3,7 +3,7 @@
 STATUS=IN_PROGRESS
 BRANCH=feat/order-003-final-close
 BASE_HEAD=1ecca07aa3dc2768acf0fcdb8fe4b108b5487b1d
-CURRENT_PHASE=Mobile-first storefront + Worker-native admin auth are committed. Verify is green; browser is 5/6 PASS with one axe failure traced to an over-broad .category-tile span selector overriding placeholder contrast. Selector is narrowed to direct child now; next is full green CI, then exact-SHA Cloudflare Worker deploy and remote acceptance.
+CURRENT_PHASE=Mobile-first storefront + Worker-native admin auth are committed. Verify is green; browser is 5/6 PASS with one axe failure isolated to white category labels over placeholder tiles. Placeholder tiles now receive no-media state with dark label; next is full green CI, then exact-SHA Cloudflare Worker deploy and remote acceptance.
 BASELINE=Before UI/auth changes: typecheck PASS; lint 0 errors/3 warnings; unit 8/8; integration 18/18; build+Wrangler dry-run PASS.
 DESIGN=REBECA_EDITORIAL_COMMERCE. Superdesign mobile baseline draft 943336f6-c7d3-4205-bc15-fb38a6a3a7d6 / project 8d66183f-6c86-46a3-b893-646a7cbe3d19. MiroMiro unavailable due monthly quota; not a blocker.
 IMPLEMENTED=Mobile-first header/menu, image-led Home hero, compact PLP controls/filter sheet, horizontal-snap PDP gallery with earlier variant/CTA access, clearer cart/checkout, admin D1/R2 stale copy corrected to Workers KV, GitHub CI added, Worker-native Basic Auth added for /admin* + /api/admin*.

@@ -413,6 +413,10 @@
   letter-spacing: -0.03em;
 }
 
+.category-tile.no-media > span {
+  color: #493941;
+}
+
 .instagram-callout {
   margin: 12px auto 0;
   max-width: var(--max);

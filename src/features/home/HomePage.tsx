@@ -84,7 +84,7 @@ export function HomePage() {
               <Link
                 key={category.id}
                 to={`/categoria/${category.slug}`}
-                className={`category-tile tile-${index + 1}`}
+                className={`category-tile tile-${index + 1} ${product?.media[0] ? '' : 'no-media'}`}
               >
                 <ProductImage media={product?.media[0]} alt={category.name} />
                 <span>{category.name}</span>

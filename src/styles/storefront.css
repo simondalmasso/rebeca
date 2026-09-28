@@ -401,7 +401,7 @@
   filter: brightness(0.85);
 }
 
-.category-tile span {
+.category-tile > span {
   position: absolute;
   left: 13px;
   right: 13px;

@@ -1,19 +1,18 @@
 # ORDER-003 CHECKPOINT
 
-STATUS=IN_PROGRESS
+STATUS=FINALIZATION
 BRANCH=feat/order-003-final-close
-BASE_HEAD=1ecca07aa3dc2768acf0fcdb8fe4b108b5487b1d
-CURRENT_PHASE=Production Worker is deployed and remote acceptance is in progress. Deployed SHA b834721610171646774e0e4f515f639f523f6909 passed GitHub CI run 36397610000. Remote health/catalog/admin auth/product/media/import checks are green. Next: browser/mobile+desktop QA on live Worker, axe/Lighthouse remote evidence, write final REPORT.md, commit, rerun CI, redeploy definitive report HEAD, prove health.sha==HEAD, repair GitLab mirror credential and prove SHA equality.
-DEPLOYED_WORKER=https://rebeca-sf.simondalmasso44.workers.dev
-DEPLOYED_VERSION_ID=3236c853-018e-40e8-9067-b7a6ac90e1b6
-DEPLOYED_SHA=b834721610171646774e0e4f515f639f523f6909
-HEALTH={"ok":true,"sha":"b834721610171646774e0e4f515f639f523f6909","environment":"release","storage":"kv","store":"ok","media":"ok"}
-BASELINE=Before UI/auth changes: typecheck PASS; lint 0 errors/3 warnings; unit 8/8; integration 18/18; build+Wrangler dry-run PASS.
-DESIGN=REBECA_EDITORIAL_COMMERCE. Superdesign mobile baseline draft 943336f6-c7d3-4205-bc15-fb38a6a3a7d6 / project 8d66183f-6c86-46a3-b893-646a7cbe3d19. MiroMiro unavailable due monthly quota; not a blocker.
-IMPLEMENTED=Mobile-first header/menu, image-led Home hero, compact PLP controls/filter sheet, horizontal-snap PDP gallery with earlier variant/CTA access, clearer cart/checkout, stale admin D1/R2 copy corrected to Workers KV, GitHub CI added, Worker-native Basic Auth added for /admin* + /api/admin*.
-AUTHORITY_OVERRIDE=Owner explicitly said "Zero Trust NO". Do not configure Cloudflare Zero Trust/Access. Admin protection is Worker-native Basic Auth. ADMIN_USER is non-secret config; ADMIN_PASSWORD is a Cloudflare Worker secret and must never be committed/logged. Test-only x-test-admin bypass remains limited to ENVIRONMENT=test.
-REMOTE_ACCEPTANCE=health exact SHA PASS; catalog 14 PASS; anonymous /api/admin 401 PASS; wrong credentials 401 PASS; authenticated admin products 14 PASS; top-alba edit reflected publicly and restored PASS; media upload/read(200 image/webp 5808 bytes)/reorder/restore/delete PASS; import preview/apply/reapply idempotency PASS (second apply skip=1, create=0, update=0); product restored.
-RUNTIME_CONTRACT=No local runtime. PC is ephemeral test/config only. Production runs on Cloudflare Worker+KV. No mouse/keyboard automation. Dedicated Brave CDP 127.0.0.1:9223 only for browser QA.
-MOBILE_FIRST=Primary acceptance viewport 390x844; desktop 1440x900 secondary.
-MIRROR_STATE=Server-side GitHub->GitLab workflow exists; GITLAB_MIRROR_TOKEN is invalid/expired and must be rotated before final acceptance. Do not add a host-based mirror.
-RESUME_EXACT=Fetch feat/order-003-final-close and read docs/orders/ORDER-003.md plus this checkpoint. Do NOT redo design/KV/auth/deploy acceptance already recorded. Continue with live browser QA at 390x844 first, then 1440x900, checking console/page errors/overflow/public shopper flow and authenticated admin UI via Basic Auth. Capture remote axe/Lighthouse evidence. Then create docs/evidence/ORDER-003/REPORT.md with all current evidence; commit it, require final GitHub CI green, deploy that definitive HEAD with BUILD_SHA=<HEAD>, verify /api/health.sha==HEAD and production behavior again. Finally rotate GITLAB_MIRROR_TOKEN in GitHub Actions using a GitLab write_repository credential and prove GitHub/GitLab main SHA equality when appropriate. Do not merge. Kill all local test/config processes before ending.
+PR=https://github.com/simondalmasso/rebeca/pull/1
+CANON=https://github.com/simondalmasso/rebeca
+RELEASE_URL=https://rebeca-sf.simondalmasso44.workers.dev/
+CURRENT_PHASE=Implementation, deploy, remote shopper/admin/media/import acceptance, live mobile/desktop QA, axe, screenshots and REPORT.md are complete. The next mandatory step is to treat the commit containing this checkpoint as the definitive HEAD, require fresh GitHub CI green on it, deploy that exact HEAD with BUILD_SHA=<HEAD>, and verify /api/health.sha==HEAD. Do not change code unless that verification exposes a real defect.
+PRE_REPORT_DEPLOY_SHA=b834721610171646774e0e4f515f639f523f6909
+PRE_REPORT_CLOUDFLARE_VERSION=3236c853-018e-40e8-9067-b7a6ac90e1b6
+PRE_REPORT_HEALTH=PASS storage=kv store=ok media=ok catalog=14
+PRE_REPORT_GITHUB_CI=36397610000 SUCCESS; E2E 6/6; Lighthouse P99/A100/BP100/SEO91 LCP1797ms CLS0.000
+REMOTE_ACCEPTANCE=public shopper PASS; anonymous/wrong admin 401 PASS; authenticated admin UI PASS; product mutation/public reflection/restore PASS; media upload/read/reorder/restore/delete PASS; import idempotency PASS; mobile 390x844 overflow=0; desktop 1440x900 overflow=0; console/page errors=0; axe critical=0 serious=0 on /,/tienda,/producto/top-alba,/carrito,/checkout.
+EVIDENCE=docs/evidence/ORDER-003/REPORT.md plus docs/evidence/ORDER-003/screenshots/*
+AUTHORITY_OVERRIDE=Owner explicitly rejected Cloudflare Zero Trust. Do not configure it. Admin protection is Worker-native Basic Auth; ADMIN_PASSWORD exists only as a Cloudflare Worker secret and must not be printed/committed.
+RUNTIME_CONTRACT=Production only on Cloudflare Worker/KV. PC is ephemeral test/config only. No local server/scheduler/runtime may remain.
+MIRROR_BLOCKER=Server-side GitHub->GitLab workflow exists but GITLAB_MIRROR_TOKEN is invalid/expired. GitLab connector cannot create project tokens and dedicated Brave is not authenticated to GitLab. Do not add a host-based mirror or reuse unrelated credentials.
+RESUME_EXACT=1) Read docs/orders/ORDER-003.md, REPORT.md and this file. 2) git fetch origin and verify feat/order-003-final-close HEAD. 3) Wait for/inspect GitHub CI on that exact HEAD; require verify+browser+Lighthouse SUCCESS. 4) Deploy that exact HEAD to Cloudflare Worker rebeca-sf with BUILD_SHA=<HEAD> and existing STORE_KV/MEDIA_KV/admin secret; verify /api/health.sha==HEAD, health ok, catalog 14, anonymous admin 401. 5) If mirror token authority becomes available, replace GitHub Actions secret GITLAB_MIRROR_TOKEN with a rebeca-sf write_repository credential, rerun mirror workflow and prove matching SHA. 6) Keep PR Draft/unmerged. 7) Return READY_FOR_FINAL_AUDIT only if mirror is also repaired; otherwise BLOCKED_REAL with only the mirror credential gate.

@@ -1,0 +1,56 @@
+name: ORDER-003 exact-SHA deploy probe
+
+on:
+  push:
+    branches:
+      - ops/order003-final-deploy
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: b21fa81d12acb663798f9f7c51801955
+    steps:
+      - name: Require Cloudflare token
+        shell: bash
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN_MISSING"; exit 2; }
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/order-003-final-close
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - name: Resolve exact release HEAD
+        id: sha
+        shell: bash
+        run: |
+          SHA="$(git rev-parse HEAD)"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "RELEASE_HEAD=$SHA"
+      - run: npm ci
+      - run: npm run build
+      - name: Deploy exact release HEAD
+        shell: bash
+        run: |
+          npx --yes wrangler@4.134.0 deploy \
+            --name rebeca-sf \
+            --var "ENVIRONMENT:release" \
+            --var "ADMIN_ORIGIN:https://rebeca-sf.simondalmasso44.workers.dev" \
+            --var "PUBLIC_ORIGINS:https://rebeca-sf.web.app,https://rebeca-sf.simondalmasso44.workers.dev" \
+            --var "BUILD_SHA:${{ steps.sha.outputs.sha }}" \
+            --var "ADMIN_USER:rebeca-admin"
+      - name: Verify exact health SHA
+        shell: bash
+        run: |
+          EXPECTED="${{ steps.sha.outputs.sha }}"
+          ACTUAL="$(node -e "fetch('https://rebeca-sf.simondalmasso44.workers.dev/api/health').then(r=>r.json()).then(j=>process.stdout.write(String(j.sha||''))).catch(()=>process.exit(1))")"
+          echo "EXPECTED=$EXPECTED"
+          echo "ACTUAL=$ACTUAL"
+          test "$ACTUAL" = "$EXPECTED"

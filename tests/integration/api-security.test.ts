@@ -35,9 +35,9 @@ describe('admin security', () => {
   });
 
   it('accepts release Basic auth and rejects a wrong password', async () => {
-    const ok = await createApp().request('/api/admin/products', { headers: { Authorization: basic() } }, env('release'));
+    const ok = await createApp().request('/admin', { headers: { Authorization: basic() } }, env('release'));
     expect(ok.status).toBe(200);
-    const bad = await createApp().request('/api/admin/products', { headers: { Authorization: basic('wrong') } }, env('release'));
+    const bad = await createApp().request('/admin', { headers: { Authorization: basic('wrong') } }, env('release'));
     expect(bad.status).toBe(401);
   });
 

@@ -33,9 +33,9 @@ export function ProductCard({ product, priority=false }:{ product:PublicProduct;
       </div>
       <div className="product-card-foot">
         {colors.length ? (
-          <div className="color-swatches" aria-label="Colores disponibles">
+          <div className="color-swatches"><span className="sr-only">Colores: {colors.join(', ')}</span>
             {colors.slice(0,5).map((color)=>(
-              <span className="color-swatch" title={color} aria-label={color} key={color} style={{backgroundColor:swatch(color)}}/>
+              <span className="color-swatch" title={color} aria-hidden="true" key={color} style={{backgroundColor:swatch(color)}}/>
             ))}
             {colors.length>5 ? <small>+{colors.length-5}</small> : null}
           </div>

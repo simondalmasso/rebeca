@@ -28,7 +28,7 @@ export function CatalogPage() {
     if(availability==='available') result=result.filter((item)=>item.variants.some((variant)=>variant.active&&variant.availability!=='out_of_stock'));
     if(sort==='low') result=[...result].sort((a,b)=>a.priceCents-b.priceCents);
     if(sort==='high') result=[...result].sort((a,b)=>b.priceCents-a.priceCents);
-    if(sort==='featured') result=[...result].sort((a,b)=>Number(b.featured)-Number(a.featured));
+    if(sort==='featured') result=[...result].sort((a,b)=>{const editorial=Number(!b.id.startsWith('demo-product-'))-Number(!a.id.startsWith('demo-product-'));return editorial||Number(b.featured)-Number(a.featured);});
     return result;
   },[catalog,slug,query,size,availability,sort]);
 

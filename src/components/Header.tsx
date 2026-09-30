@@ -34,9 +34,9 @@ export function Header() {
   return (
     <>
       <div className="announcement">
-        <span>REBECA · Santa Fe</span>
+        <span>REBECA · SANTA FE</span>
         <span aria-hidden="true">✦</span>
-        <span>Coordinación por WhatsApp</span>
+        <span>PEDIDOS POR WHATSAPP</span>
       </div>
 
       <header className="site-header">
@@ -59,7 +59,7 @@ export function Header() {
           <Search aria-hidden="true" />
           <input
             aria-label="Buscar productos"
-            placeholder="Buscar productos..."
+            placeholder="Buscar prendas, talles, colores…"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
@@ -102,7 +102,7 @@ export function Header() {
             <Search aria-hidden="true" />
             <input
               aria-label="Buscar productos"
-              placeholder="Buscar productos..."
+              placeholder="Buscar prendas…"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
@@ -114,8 +114,8 @@ export function Header() {
           </nav>
 
           <div className="mobile-menu-meta">
-            <span>Moda para elegir a tu ritmo.</span>
-            <a href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'} target="_blank" rel="noreferrer">Instagram</a>
+            <span>REBECA / SANTA FE</span>
+            <a href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'} target="_blank" rel="noreferrer">Instagram ↗</a>
           </div>
         </div>
       ) : null}

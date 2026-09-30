@@ -5,7 +5,10 @@ import { useStore } from '../app/store';
 
 const mobileLinks = [
   ['/tienda', 'Tienda'],
+  ['/categoria/lenceria', 'Lencería'],
+  ['/categoria/pijamas', 'Pijamas'],
   ['/categoria/tops-remeras', 'Tops y remeras'],
+  ['/categoria/infantil', 'Infantil'],
   ['/categoria/jeans-pantalones', 'Jeans y pantalones'],
   ['/categoria/vestidos-faldas', 'Vestidos y faldas'],
 ] as const;
@@ -48,9 +51,10 @@ export function Header() {
         </Link>
         <nav className="desktop-nav" aria-label="Principal">
           <NavLink to="/tienda">Tienda</NavLink>
+          <NavLink to="/categoria/lenceria">Lencería</NavLink>
+          <NavLink to="/categoria/pijamas">Pijamas</NavLink>
           <NavLink to="/categoria/tops-remeras">Tops</NavLink>
-          <NavLink to="/categoria/jeans-pantalones">Pantalones</NavLink>
-          <NavLink to="/categoria/vestidos-faldas">Vestidos</NavLink>
+          <NavLink to="/categoria/infantil">Infantil</NavLink>
         </nav>
         <div className="header-actions">
           <Link className="icon-button" to="/tienda" aria-label="Buscar productos">

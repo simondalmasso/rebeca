@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "batch": "rebeca-instagram-adapted-v1",
+  "disclaimer": "Propuesta demo basada en referencias visuales públicas de Rebeca Santa Fe. Precios, talles, stock y disponibilidad son ilustrativos y no se presentan como datos oficiales de Instagram.",
+  "products": [
+    {
+      "asset": "conjunto_de_pijama_satén_de_leopardo.webp",
+      "slug": "pijama-saten-leopardo",
+      "title": "Pijama Satén Leopardo",
+      "categorySlug": "pijamas",
+      "categoryName": "Pijamas",
+      "priceCents": 1890000,
+      "featured": true
+    },
+    {
+      "asset": "bras_sin_costuras_en_tonos_neutros.webp",
+      "slug": "bralette-seamless",
+      "title": "Bralette Seamless",
+      "categorySlug": "lenceria",
+      "categoryName": "Lencería",
+      "priceCents": 1290000,
+      "featured": true
+    },
+    {
+      "asset": "sujetadores_moldeados_en_capas_blanco_beige_y_neg.webp",
+      "slug": "corpino-moldeado",
+      "title": "Corpiño Moldeado",
+      "categorySlug": "lenceria",
+      "categoryName": "Lencería",
+      "priceCents": 1390000,
+      "featured": false
+    },
+    {
+      "asset": "flatlay_colorido_de_conjuntos_de_baño_infantiles.webp",
+      "slug": "conjunto-infantil-estampado",
+      "title": "Conjunto Infantil Estampado",
+      "categorySlug": "infantil",
+      "categoryName": "Infantil",
+      "priceCents": 1090000,
+      "featured": true
+    },
+    {
+      "asset": "tops_de_canalé_en_abanico_cromático.webp",
+      "slug": "top-morley-colores",
+      "title": "Top Morley Colores",
+      "categorySlug": "tops-remeras",
+      "categoryName": "Tops y remeras",
+      "priceCents": 890000,
+      "featured": true
+    },
+    {
+      "asset": "trío_de_tangas_acanalados_sobre_blanco.webp",
+      "slug": "tanga-seamless",
+      "title": "Tanga Seamless",
+      "categorySlug": "lenceria",
+      "categoryName": "Lencería",
+      "priceCents": 690000,
+      "featured": false
+    },
+    {
+      "asset": "bodysuits_de_encaje_en_blanco_y_negro.webp",
+      "slug": "body-encaje",
+      "title": "Body Encaje",
+      "categorySlug": "lenceria",
+      "categoryName": "Lencería",
+      "priceCents": 1490000,
+      "featured": true
+    }
+  ]
+}

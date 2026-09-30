@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "batch": "rebeca-instagram-adapted-v1",
-  "disclaimer": "Propuesta demo basada en referencias visuales públicas de Rebeca Santa Fe. Precios, talles, stock y disponibilidad son ilustrativos y no se presentan como datos oficiales de Instagram.",
+  "batch": "rebeca-instagram-adapted-v2",
+  "disclaimer": "Propuesta demo basada en referencias visuales públicas/aportadas de Rebeca Santa Fe y adaptaciones 3D de catálogo. Precios, talles, stock y disponibilidad son ilustrativos y deben confirmarse con REBECA.",
   "products": [
     {
       "asset": "conjunto_de_pijama_satén_de_leopardo.webp",
-      "slug": "pijama-saten-leopardo",
-      "title": "Pijama Satén Leopardo",
+      "slug": "pijama-leopardo",
+      "title": "Pijama Leopardo",
       "categorySlug": "pijamas",
       "categoryName": "Pijamas",
       "priceCents": 1890000,
@@ -14,8 +14,8 @@
     },
     {
       "asset": "bras_sin_costuras_en_tonos_neutros.webp",
-      "slug": "bralette-seamless",
-      "title": "Bralette Seamless",
+      "slug": "bralette-seamless-neutro",
+      "title": "Bralette Seamless Neutro",
       "categorySlug": "lenceria",
       "categoryName": "Lencería",
       "priceCents": 1290000,
@@ -23,8 +23,8 @@
     },
     {
       "asset": "sujetadores_moldeados_en_capas_blanco_beige_y_neg.webp",
-      "slug": "corpino-moldeado",
-      "title": "Corpiño Moldeado",
+      "slug": "corpinio-moldeado-soft",
+      "title": "Corpiño Moldeado Soft",
       "categorySlug": "lenceria",
       "categoryName": "Lencería",
       "priceCents": 1390000,
@@ -41,8 +41,8 @@
     },
     {
       "asset": "tops_de_canalé_en_abanico_cromático.webp",
-      "slug": "top-morley-colores",
-      "title": "Top Morley Colores",
+      "slug": "top-morley-color",
+      "title": "Top Morley Color",
       "categorySlug": "tops-remeras",
       "categoryName": "Tops y remeras",
       "priceCents": 890000,
@@ -50,8 +50,8 @@
     },
     {
       "asset": "trío_de_tangas_acanalados_sobre_blanco.webp",
-      "slug": "tanga-seamless",
-      "title": "Tanga Seamless",
+      "slug": "pack-tangas-acanaladas",
+      "title": "Pack Tangas Acanaladas",
       "categorySlug": "lenceria",
       "categoryName": "Lencería",
       "priceCents": 690000,
@@ -59,11 +59,29 @@
     },
     {
       "asset": "bodysuits_de_encaje_en_blanco_y_negro.webp",
-      "slug": "body-encaje",
-      "title": "Body Encaje",
+      "slug": "body-encaje-neutro",
+      "title": "Body Encaje Neutro",
       "categorySlug": "lenceria",
       "categoryName": "Lencería",
       "priceCents": 1490000,
+      "featured": true
+    },
+    {
+      "asset": "bralette-seamless-arena-3d.webp",
+      "slug": "bralette-seamless-arena-3d",
+      "title": "Bralette Seamless Arena 3D",
+      "categorySlug": "lenceria",
+      "categoryName": "Lencería",
+      "priceCents": 1390000,
+      "featured": true
+    },
+    {
+      "asset": "pijama-saten-rosa-animal-3d.webp",
+      "slug": "pijama-saten-rosa-animal-3d",
+      "title": "Pijama Satén Rosa Animal 3D",
+      "categorySlug": "pijamas",
+      "categoryName": "Pijamas",
+      "priceCents": 1990000,
       "featured": true
     }
   ]

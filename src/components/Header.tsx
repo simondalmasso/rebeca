@@ -1,41 +1,44 @@
-import { Menu, Search, ShoppingBag, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Instagram, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { FormEvent, useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useStore } from '../app/store';
 
-const mobileLinks = [
+const navLinks = [
   ['/tienda', 'Tienda'],
   ['/categoria/lenceria', 'Lencería'],
   ['/categoria/pijamas', 'Pijamas'],
-  ['/categoria/tops-remeras', 'Tops y remeras'],
+  ['/categoria/tops-remeras', 'Tops'],
   ['/categoria/infantil', 'Infantil'],
-  ['/categoria/jeans-pantalones', 'Jeans y pantalones'],
-  ['/categoria/vestidos-faldas', 'Vestidos y faldas'],
 ] as const;
 
 export function Header() {
-  const { cart } = useStore();
+  const { cart, settings } = useStore();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
   const count = cart.reduce((sum, line) => sum + line.quantity, 0);
 
   useEffect(() => {
     if (!open) return;
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = previous;
-    };
+    return () => { document.body.style.overflow = previous; };
   }, [open]);
 
-  const close = () => setOpen(false);
+  const submitSearch = (event: FormEvent) => {
+    event.preventDefault();
+    const value = query.trim();
+    navigate(value ? `/tienda?q=${encodeURIComponent(value)}` : '/tienda');
+  };
 
   return (
     <>
       <div className="announcement">
-        <span>Comprá online</span>
-        <span aria-hidden="true">·</span>
-        <span>Coordiná entrega por WhatsApp</span>
+        <span>REBECA · Santa Fe</span>
+        <span aria-hidden="true">✦</span>
+        <span>Coordinación por WhatsApp</span>
       </div>
+
       <header className="site-header">
         <button
           className="icon-button mobile-only"
@@ -46,50 +49,73 @@ export function Header() {
         >
           <Menu />
         </button>
-        <Link className="wordmark" to="/" aria-label="REBECA, inicio">
-          REBECA
+
+        <Link className="brand-lockup" to="/" aria-label="REBECA Santa Fe, inicio">
+          <span className="wordmark">REBECA</span>
+          <span className="brand-city">SANTA FE</span>
         </Link>
-        <nav className="desktop-nav" aria-label="Principal">
-          <NavLink to="/tienda">Tienda</NavLink>
-          <NavLink to="/categoria/lenceria">Lencería</NavLink>
-          <NavLink to="/categoria/pijamas">Pijamas</NavLink>
-          <NavLink to="/categoria/tops-remeras">Tops</NavLink>
-          <NavLink to="/categoria/infantil">Infantil</NavLink>
-        </nav>
+
+        <form className="header-search" role="search" onSubmit={submitSearch}>
+          <Search aria-hidden="true" />
+          <input
+            aria-label="Buscar productos"
+            placeholder="Buscar productos..."
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </form>
+
         <div className="header-actions">
-          <Link className="icon-button" to="/tienda" aria-label="Buscar productos">
-            <Search />
-          </Link>
+          <a
+            className="desktop-instagram"
+            href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Instagram />
+            <span>Instagram</span>
+          </a>
           <Link className="cart-button" to="/carrito" aria-label={`Carrito, ${count} productos`}>
             <ShoppingBag />
-            <span>{count}</span>
+            <span className="cart-label">Carrito</span>
+            <b>{count}</b>
           </Link>
         </div>
       </header>
+
+      <nav className="desktop-nav" aria-label="Principal">
+        <NavLink to="/">Inicio</NavLink>
+        {navLinks.map(([to, label]) => <NavLink to={to} key={to}>{label}</NavLink>)}
+      </nav>
+
       {open ? (
-        <div
-          className="mobile-menu"
-          id="mobile-navigation"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Menú principal"
-        >
+        <div className="mobile-menu" id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Menú principal">
           <div className="mobile-menu-head">
-            <span className="wordmark">REBECA</span>
-            <button className="icon-button" onClick={close} aria-label="Cerrar menú">
-              <X />
-            </button>
+            <span className="mobile-brand">
+              <span className="wordmark">REBECA</span>
+              <small>SANTA FE</small>
+            </span>
+            <button className="icon-button" onClick={() => setOpen(false)} aria-label="Cerrar menú"><X /></button>
           </div>
+
+          <form className="mobile-search" role="search" onSubmit={(event) => { submitSearch(event); setOpen(false); }}>
+            <Search aria-hidden="true" />
+            <input
+              aria-label="Buscar productos"
+              placeholder="Buscar productos..."
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </form>
+
           <nav className="mobile-menu-nav" aria-label="Navegación móvil">
-            {mobileLinks.map(([to, label]) => (
-              <Link key={to} onClick={close} to={to}>
-                {label}
-              </Link>
-            ))}
+            <Link onClick={() => setOpen(false)} to="/">Inicio</Link>
+            {navLinks.map(([to, label]) => <Link key={to} onClick={() => setOpen(false)} to={to}>{label}</Link>)}
           </nav>
+
           <div className="mobile-menu-meta">
-            <span>Santa Fe</span>
             <span>Moda para elegir a tu ritmo.</span>
+            <a href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'} target="_blank" rel="noreferrer">Instagram</a>
           </div>
         </div>
       ) : null}

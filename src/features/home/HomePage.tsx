@@ -52,7 +52,7 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="hero-gallery" aria-label="Selección destacada">
+        <div className="hero-gallery">
           {heroProducts.map((product, index) => (
             <Link
               className={`hero-shot hero-shot-${index + 1}`}

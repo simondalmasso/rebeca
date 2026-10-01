@@ -74,7 +74,7 @@ export function ProductPage() {
           <strong>{formatArs(price)}</strong>
           {product.compareAtPriceCents ? <del>{formatArs(product.compareAtPriceCents)}</del> : null}
         </div>
-        <p className="description">{product.description}</p>
+        {product.description ? <p className="description">{product.description}</p> : null}
 
         {sizes.length ? (
           <fieldset className="variant-field">

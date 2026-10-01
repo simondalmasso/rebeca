@@ -14,12 +14,10 @@ const swatch=(color:string)=>colorMap[color.toLowerCase()]??'#d8d4d1';
 export function ProductCard({ product, priority=false }:{ product:PublicProduct; priority?:boolean }) {
   const available=product.variants.some((variant)=>variant.active&&variant.availability!=='out_of_stock');
   const colors=[...new Set(product.variants.map((variant)=>variant.color).filter(Boolean))] as string[];
-
   return (
     <article className="product-card">
       <Link to={`/producto/${product.slug}`} className="product-card-media" aria-label={`Ver ${product.title}`}>
         <ProductImage media={product.media[0]} alt={product.title} priority={priority}/>
-        {product.featured ? <span className="editor-pick">REBECA PICK</span> : null}
       </Link>
       <div className="product-card-copy">
         <div className="product-card-main">
@@ -34,9 +32,7 @@ export function ProductCard({ product, priority=false }:{ product:PublicProduct;
       <div className="product-card-foot">
         {colors.length ? (
           <div className="color-swatches"><span className="sr-only">Colores: {colors.join(', ')}</span>
-            {colors.slice(0,5).map((color)=>(
-              <span className="color-swatch" title={color} aria-hidden="true" key={color} style={{backgroundColor:swatch(color)}}/>
-            ))}
+            {colors.slice(0,5).map((color)=><span className="color-swatch" title={color} aria-hidden="true" key={color} style={{backgroundColor:swatch(color)}}/>)}
             {colors.length>5 ? <small>+{colors.length-5}</small> : null}
           </div>
         ) : <span/>}

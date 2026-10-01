@@ -597,3 +597,38 @@ button,a{-webkit-tap-highlight-color:transparent}
   .showcase-head>a{font-size:0}
   .showcase-head>a::before{content:'Ver todo';font-size:10px}
 }
+
+
+/* REBECA storefront refresh — mobile first */
+:root{--rebeca-ink:#1d1d1b;--rebeca-pink:#dd1659;--rebeca-blush:#fff0f5;--rebeca-line:#dedede;--rebeca-muted:#6f6f6f}
+.announcement{justify-content:space-between;padding-inline:var(--gutter);background:var(--rebeca-ink);color:#fff;font-size:9px;font-weight:750;letter-spacing:.11em;text-transform:uppercase}
+.announcement a{color:#fff;text-decoration:underline;text-underline-offset:3px}
+.site-header{height:68px;padding-inline:var(--gutter);background:rgba(255,255,255,.97);border-bottom:1px solid var(--rebeca-line);backdrop-filter:blur(14px)}
+.brand-lockup{display:grid;justify-items:center;line-height:.9;margin-inline:auto}
+.wordmark{font-size:25px;font-weight:900;letter-spacing:-.05em}.brand-city{margin-top:5px;font-size:7px;font-weight:750;letter-spacing:.34em}
+.hero-background-word,.brand-manifesto,.editor-pick{display:none!important}
+.rebeca-hero{max-width:var(--max);margin:0 auto;display:grid;background:#fff;border-bottom:1px solid var(--rebeca-line)}
+.rebeca-hero-copy{padding:36px var(--gutter) 24px;display:grid;align-content:start}
+.hero-eyebrow{margin:0 0 14px;color:var(--rebeca-muted);font-size:10px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+.rebeca-hero h1{margin:0;font-size:clamp(68px,22vw,118px);font-weight:900;line-height:.78;letter-spacing:-.085em}
+.rebeca-hero h1::after{content:'.';color:var(--rebeca-pink)}
+.hero-lead{margin:20px 0 0;font-size:14px;font-weight:650}
+.hero-actions-new{display:flex;align-items:center;gap:12px;margin-top:22px}
+.hero-cta{min-height:48px;display:inline-flex;align-items:center;gap:18px;padding:0 16px;background:var(--rebeca-ink);color:#fff;font-size:12px;font-weight:800}
+.hero-link{min-height:48px;display:inline-flex;align-items:center;padding:0 4px;border-bottom:1px solid var(--rebeca-ink);font-size:12px;font-weight:750}
+.hero-gallery{display:grid;grid-template-columns:1.35fr .85fr;grid-template-rows:1fr 1fr;gap:4px;height:470px;padding:0 var(--gutter)}
+.hero-shot{position:relative;overflow:hidden;background:#f4f4f4}.hero-shot-1{grid-row:1 / 3}
+.hero-shot .product-image{width:100%;height:100%;object-fit:cover;aspect-ratio:auto}
+.hero-shot-label{position:absolute;left:8px;right:8px;bottom:8px;width:max-content;max-width:calc(100% - 16px);padding:6px 8px;background:rgba(255,255,255,.93);font-size:9px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-dock{min-height:44px;display:flex;align-items:center;gap:14px;padding:8px var(--gutter);color:var(--rebeca-muted);font-size:10px}.hero-dock>a{margin-left:auto;color:var(--rebeca-ink);font-weight:800}
+.home-categories{max-width:var(--max);margin:0 auto;padding:34px 0 30px;border-bottom:1px solid var(--rebeca-line)}
+.rail-title{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:0 var(--gutter) 16px}.rail-title span{font-size:28px;font-weight:850;letter-spacing:-.045em}
+.catalog-showcase{max-width:var(--max);margin:0 auto;padding:48px var(--gutter) 62px}.showcase-head h2{margin:0;font-size:clamp(38px,11vw,68px);font-weight:850;letter-spacing:-.06em;line-height:.9}
+.storefront-grid{gap:30px 8px}.product-card-media{border-radius:0;background:#f4f4f4}.product-card-title{font-size:13px;font-weight:800}.product-card-category{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--rebeca-muted)}.product-card-price strong{font-weight:850}
+.home-instagram{max-width:var(--max);margin:0 auto;padding:44px var(--gutter);display:grid;gap:22px;background:var(--rebeca-blush);border-top:1px solid #ffd0e0;border-bottom:1px solid #ffd0e0}.home-instagram h2{margin:0;font-size:clamp(34px,10vw,72px);font-weight:900;letter-spacing:-.065em;overflow-wrap:anywhere}
+.instagram-action{min-height:48px;width:max-content;display:inline-flex;align-items:center;gap:14px;padding:0 16px;border:1px solid var(--rebeca-ink);background:#fff;font-size:11px;font-weight:850}
+.catalog-category-pills a.active{background:var(--rebeca-ink);border-color:var(--rebeca-ink);color:#fff}.button.primary{background:var(--rebeca-ink);border-color:var(--rebeca-ink)}.button.whatsapp{background:#25d366;border-color:#25d366;color:#07150b}.footer{background:#fff}
+@media (hover:hover){.hero-cta:hover,.instagram-action:hover{background:var(--rebeca-pink);border-color:var(--rebeca-pink);color:#fff}.product-card:hover .product-image{transform:scale(1.018)}}
+@media (min-width:768px){.site-header{height:82px;display:grid;grid-template-columns:190px minmax(280px,1fr) auto;gap:24px}.brand-lockup{justify-items:start;margin:0}.wordmark{font-size:32px}.desktop-nav{height:42px;display:flex;justify-content:center;gap:32px;border-bottom:1px solid var(--rebeca-line);background:#fff;font-size:10px;font-weight:750;text-transform:uppercase;letter-spacing:.08em}.rebeca-hero{min-height:660px;grid-template-columns:minmax(330px,.7fr) minmax(580px,1.3fr);grid-template-rows:1fr auto}.rebeca-hero-copy{grid-column:1;grid-row:1;align-content:center;padding:60px clamp(28px,4vw,64px)}.rebeca-hero h1{font-size:clamp(86px,9vw,150px)}.hero-gallery{grid-column:2;grid-row:1;height:auto;min-height:620px;padding:0;gap:6px}.hero-dock{grid-column:1 / -1;border-top:1px solid var(--rebeca-line)}.home-instagram{grid-template-columns:1fr auto;align-items:center}}
+@media (min-width:1100px){.storefront-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:40px 16px}}
+

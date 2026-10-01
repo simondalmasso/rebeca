@@ -1,1 +1,17 @@
-import { describe,expect,it } from 'vitest'; import { formatArs,lineTotalCents } from '../../shared/money'; import { buildOrderCode,buildWhatsAppMessage,buildWhatsAppUrl } from '../../shared/whatsapp-order'; describe('money',()=>{it('uses integer centavos',()=>{expect(formatArs(1234567)).toBe('$12.345,67');expect(formatArs(200000)).toBe('$2.000');expect(lineTotalCents(199900,3)).toBe(599700);});}); describe('WhatsApp order',()=>{it('creates crypto-shaped order code and exact canonical URL',()=>{const code=buildOrderCode(new Date(2026,8,16),()=>new Uint8Array([7,17,27,37,47]));expect(code).toMatch(/^RB-20260916-[A-Z0-9]{5}$/);const message=buildWhatsAppMessage({code:'RB-20260916-X7K4Q',name:'Ana',delivery:'Retiro',note:'Tarde',items:[{title:'Top Alba',size:'M',color:'Negro',quantity:2,unitPriceCents:100000}]});expect(message).toBe('Hola Rebeca, quiero hacer este pedido.\nPedido: RB-20260916-X7K4Q\nNombre: Ana\nEntrega: Retiro\n\n1. Top Alba — M / Negro × 2 — $2.000\n\nTotal: $2.000\nNota: Tarde');expect(buildWhatsAppUrl('5493420000000',message)).toBe(`https://wa.me/5493420000000?text=${encodeURIComponent(message)}`);});});
+import { describe,expect,it } from 'vitest';
+import { formatArs,lineTotalCents } from '../../shared/money';
+import { WHATSAPP_URL } from '../../shared/whatsapp-order';
+
+describe('money',()=>{
+  it('uses integer centavos',()=>{
+    expect(formatArs(1234567)).toBe('$12.345,67');
+    expect(formatArs(200000)).toBe('$2.000');
+    expect(lineTotalCents(199900,3)).toBe(599700);
+  });
+});
+
+describe('WhatsApp handoff',()=>{
+  it('uses the configured wa.link destination',()=>{
+    expect(WHATSAPP_URL).toBe('https://wa.link/6j7b0q');
+  });
+});

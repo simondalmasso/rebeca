@@ -11,10 +11,17 @@ export function CatalogPage() {
   const [query,setQuery]=useState(searchParams.get('q')??'');
   const [size,setSize]=useState('');
   const [availability,setAvailability]=useState('');
-  const [sort,setSort]=useState('featured');
+  const [sort,setSort]=useState('catalog');
   const [filtersOpen,setFiltersOpen]=useState(false);
 
   useEffect(()=>setQuery(searchParams.get('q')??''),[searchParams]);
+
+  const visibleCategories=useMemo(()=>(
+    catalog?.categories
+      .filter((category)=>catalog.products.some((product)=>product.category?.slug===category.slug))
+      .slice()
+      .sort((a,b)=>a.sortOrder-b.sortOrder)??[]
+  ),[catalog]);
 
   const sizes=useMemo(()=>[
     ...new Set(catalog?.products.flatMap((product)=>product.variants.map((variant)=>variant.size).filter(Boolean))??[])
@@ -28,14 +35,13 @@ export function CatalogPage() {
     if(availability==='available') result=result.filter((item)=>item.variants.some((variant)=>variant.active&&variant.availability!=='out_of_stock'));
     if(sort==='low') result=[...result].sort((a,b)=>a.priceCents-b.priceCents);
     if(sort==='high') result=[...result].sort((a,b)=>b.priceCents-a.priceCents);
-    if(sort==='featured') result=[...result].sort((a,b)=>{const editorial=Number(!b.id.startsWith('demo-product-'))-Number(!a.id.startsWith('demo-product-'));return editorial||Number(b.featured)-Number(a.featured);});
     return result;
   },[catalog,slug,query,size,availability,sort]);
 
   if(loading) return <div className="page-state">Cargando catálogo…</div>;
   if(error||!catalog) return <div className="page-state error">{error}</div>;
 
-  const category=slug?catalog.categories.find((item)=>item.slug===slug):null;
+  const category=slug?visibleCategories.find((item)=>item.slug===slug):null;
   const activeFilterCount=Number(Boolean(size))+Number(Boolean(availability));
   const reset=()=>{setSize('');setAvailability('');};
 
@@ -43,17 +49,17 @@ export function CatalogPage() {
     <section className="catalog-page">
       <nav className="catalog-category-pills" aria-label="Categorías">
         <Link className={!slug?'active':''} to="/tienda">Todo</Link>
-        {catalog.categories.slice().sort((a,b)=>a.sortOrder-b.sortOrder).map((item)=>(
+        {visibleCategories.map((item)=>(
           <Link className={slug===item.slug?'active':''} to={`/categoria/${item.slug}`} key={item.id}>{item.name}</Link>
         ))}
       </nav>
 
       <div className="catalog-head">
-        <div><p className="overline">REBECA SHOP</p><h1>{category?.name??'Tienda'}</h1><span>{products.length} productos</span></div>
+        <div><p className="overline">TIENDA</p><h1>{category?.name??'Productos'}</h1><span>{products.length} productos</span></div>
         <div className="catalog-tools">
-          <label className="search-field"><span className="sr-only">Buscar</span><input value={query} onChange={(event)=>setQuery(event.target.value)} placeholder="Buscar productos..."/></label>
+          <label className="search-field"><span className="sr-only">Buscar</span><input value={query} onChange={(event)=>setQuery(event.target.value)} placeholder="Buscar productos"/></label>
           <select className="sort-select" aria-label="Ordenar" value={sort} onChange={(event)=>setSort(event.target.value)}>
-            <option value="featured">Más relevantes</option><option value="low">Precio: menor a mayor</option><option value="high">Precio: mayor a menor</option>
+            <option value="catalog">Orden de catálogo</option><option value="low">Precio: menor a mayor</option><option value="high">Precio: mayor a menor</option>
           </select>
           <button className="button secondary filter-toggle" aria-expanded={filtersOpen} onClick={()=>setFiltersOpen(true)}><Filter/>Filtros{activeFilterCount?<span className="filter-count">{activeFilterCount}</span>:null}</button>
         </div>
@@ -69,14 +75,14 @@ export function CatalogPage() {
         {products.length?(
           <div className="product-grid catalog-grid">{products.map((product,index)=><ProductCard key={product.id} product={product} priority={index<4}/>)}</div>
         ):(
-          <div className="catalog-empty"><h2>No encontramos prendas</h2><p>Probá con otra búsqueda o limpiá los filtros.</p><button className="button secondary" onClick={()=>{setQuery('');reset();}}>Limpiar búsqueda</button></div>
+          <div className="catalog-empty"><h2>Sin resultados</h2><button className="button secondary" onClick={()=>{setQuery('');reset();}}>Limpiar búsqueda</button></div>
         )}
       </div>
 
       {filtersOpen?(
         <div className="filter-overlay" onClick={()=>setFiltersOpen(false)}>
           <div className="filter-sheet" role="dialog" aria-modal="true" aria-label="Filtros" onClick={(event)=>event.stopPropagation()}>
-            <div className="sheet-head"><div><p className="overline">AFINÁ LA TIENDA</p><h2>Filtros</h2></div><button className="icon-button" onClick={()=>setFiltersOpen(false)} aria-label="Cerrar filtros"><X/></button></div>
+            <div className="sheet-head"><div><p className="overline">FILTROS</p><h2>Filtrar</h2></div><button className="icon-button" onClick={()=>setFiltersOpen(false)} aria-label="Cerrar filtros"><X/></button></div>
             <label>Talle<select value={size} onChange={(event)=>setSize(event.target.value)}><option value="">Todos</option>{sizes.map((value)=><option key={value}>{value}</option>)}</select></label>
             <label>Disponibilidad<select value={availability} onChange={(event)=>setAvailability(event.target.value)}><option value="">Todas</option><option value="available">Disponible</option></select></label>
             <div className="sheet-actions"><button className="button secondary" onClick={reset}>Limpiar</button><button className="button primary" onClick={()=>setFiltersOpen(false)}>Ver {products.length}</button></div>

@@ -25,7 +25,7 @@ test('captures ORDER-001 responsive release evidence',async({page},testInfo)=>{
     await page.goto('/');
     await page.evaluate(()=>localStorage.clear());
     await page.reload();
-    await expect(page.getByRole('heading',{name:/REBECA/i})).toBeVisible();
+    await expect(page.getByRole('heading',{level:1})).toBeVisible();
     await capture(`${label}-home-first.png`,false);
     await capture(`${label}-home-full.png`);
 

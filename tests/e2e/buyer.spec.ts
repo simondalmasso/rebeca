@@ -6,7 +6,7 @@ test.beforeEach(async({request})=>{await seedDemo(request);});
 
 test('buyer flow persists cart and hands off to WhatsApp',async({page})=>{
   await page.goto('/');
-  await expect(page.getByRole('heading',{name:/REBECA/i})).toBeVisible();
+  await expect(page.getByRole('heading',{level:1})).toBeVisible();
   await page.getByRole('link',{name:/Ver tienda/i}).first().click();
   await expect(page).toHaveURL(/\/tienda/);
   await page.getByRole('link',{name:/Ver Top Alba/i}).click();

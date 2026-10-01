@@ -600,7 +600,7 @@ button,a{-webkit-tap-highlight-color:transparent}
 
 
 /* REBECA storefront refresh — mobile first */
-:root{--rebeca-ink:#1d1d1b;--rebeca-pink:#dd1659;--rebeca-blush:#fff0f5;--rebeca-line:#dedede;--rebeca-muted:#6f6f6f}
+:root{--rebeca-ink:#1d1d1b;--rebeca-pink:#dd1659;--rebeca-blush:#fff0f5;--rebeca-line:#dedede;--rebeca-muted:#626262}
 .announcement{justify-content:space-between;padding-inline:var(--gutter);background:var(--rebeca-ink);color:#fff;font-size:9px;font-weight:750;letter-spacing:.11em;text-transform:uppercase}
 .announcement a{color:#fff;text-decoration:underline;text-underline-offset:3px}
 .site-header{height:68px;padding-inline:var(--gutter);background:rgba(255,255,255,.97);border-bottom:1px solid var(--rebeca-line);backdrop-filter:blur(14px)}

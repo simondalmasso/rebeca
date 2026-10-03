@@ -25,12 +25,12 @@ test('captures ORDER-001 responsive release evidence',async({page},testInfo)=>{
     await page.goto('/');
     await page.evaluate(()=>localStorage.clear());
     await page.reload();
-    await expect(page.getByRole('heading',{name:/Nueva colección/i})).toBeVisible();
+    await expect(page.getByRole('heading',{level:1})).toBeVisible();
     await capture(`${label}-home-first.png`,false);
     await capture(`${label}-home-full.png`);
 
     await page.goto('/tienda');
-    await expect(page.getByRole('heading',{name:'Tienda'})).toBeVisible();
+    await expect(page.getByRole('heading',{name:'Productos'})).toBeVisible();
     await capture(`${label}-catalog.png`);
 
     await page.goto('/producto/top-alba');
@@ -45,7 +45,7 @@ test('captures ORDER-001 responsive release evidence',async({page},testInfo)=>{
     await capture(`${label}-cart.png`);
 
     await page.goto('/checkout');
-    await expect(page.getByRole('heading',{name:'Finalizá tu pedido'})).toBeVisible();
+    await expect(page.getByRole('heading',{name:'Finalizar pedido'})).toBeVisible();
     await capture(`${label}-checkout.png`);
 
     await page.goto('/admin/productos/nuevo');

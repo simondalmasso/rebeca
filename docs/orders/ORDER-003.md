@@ -299,48 +299,25 @@ The mirror workflow remains separate.
 
 Final PR SHA must have fresh green GitHub CI.
 
-## 10. PHASE E — CLOUDFLARE ACCESS
+## 10. PHASE E — ADMIN AUTH (OWNER OVERRIDE: NO ZERO TRUST)
 
-Protect admin only.
+Owner override: Cloudflare Zero Trust / Access is NOT to be used.
 
-Canonical hostname:
-`rebeca-sf.simondalmasso44.workers.dev`
-
-Protected destinations must cover exact parent + descendants:
-
-```text
-/admin
-/admin/*
-/api/admin
-/api/admin/*
-```
-
-Public routes must remain public, including:
-- `/`
-- catalog/category/product routes
-- cart/checkout
-- `/api/catalog*`
-- `/api/health`
-- `/media/*`
-
-Do not protect the whole Worker.
-
-Initial authorized admin may use the verified current owner identity already available to the account. Do not invent additional identities.
-
-Capture actual:
-- Access app name/id
-- team domain
-- audience tag(s)
-
-If multiple Access apps/audiences are required, use validated `CF_ACCESS_AUDS`; no wildcard audience.
+Protect admin at the Worker edge with HTTP Basic authentication:
+- `/admin` and `/admin/*`
+- `/api/admin` and `/api/admin/*`
+- `ADMIN_USER` may be non-secret config.
+- `ADMIN_PASSWORD` MUST be a Cloudflare Worker secret, never committed or logged.
+- test-only `x-test-admin` bypass remains valid only when `ENVIRONMENT=test` and `TEST_AUTH_ENABLED=1`.
+- public storefront, catalog API, health and media remain anonymous.
 
 Required proof:
-- anonymous `/admin` challenged/denied
-- anonymous descendant challenged/denied
-- anonymous `/api/admin/products` unusable
-- authenticated admin reaches admin
-- authenticated mutation persists
-- public storefront still anonymous/public
+- anonymous `/admin` => 401 + `WWW-Authenticate: Basic`
+- anonymous `/api/admin/products` => 401
+- wrong credentials => 401
+- authenticated admin UI loads
+- authenticated admin mutation persists and reflects publicly
+- public storefront remains anonymous
 
 ## 11. PHASE F — RELEASE DEPLOY
 
@@ -352,7 +329,7 @@ Required vars/config:
 - `ENVIRONMENT=release`
 - `BUILD_SHA=<exact final GitHub HEAD>`
 - correct public/admin origins
-- actual Access team/audience config
+- actual Worker admin auth config; ADMIN_PASSWORD set as Worker secret
 - existing STORE_KV/MEDIA_KV bindings
 
 Interactive authorized Wrangler is allowed.
@@ -527,7 +504,7 @@ ORDER-003 is DONE only when:
 - existing architecture is preserved
 - fresh GitHub CI is green
 - server-side GitHub->GitLab mirror remains healthy
-- Cloudflare Access protects admin UI/API only
+- Worker-native Basic Auth protects admin UI/API only
 - canonical Worker is publicly reachable
 - `/api/health.sha` equals final GitHub HEAD
 - catalog/media work remotely
@@ -567,7 +544,7 @@ UX_REMOTE=PASS|FAIL
 E2E_REMOTE_PUBLIC=PASS|FAIL
 ADMIN_REMOTE=PASS|FAIL
 MEDIA_REMOTE=PASS|FAIL
-ACCESS_PROTECTION=PASS|FAIL
+ADMIN_AUTH_PROTECTION=PASS|FAIL
 IMPORT_IDEMPOTENCY=PASS|FAIL
 CATALOG=<total/demo>
 WHATSAPP_RELEASE_DESTINATION=CONFIGURED|UNCONFIGURED_DEMO

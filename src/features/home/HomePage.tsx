@@ -50,7 +50,7 @@ export function HomePage() {
           </div>
         </div>
 
-        <div className="fashion-deck" aria-label="Productos destacados">
+        <div className="fashion-deck" role="region" aria-label="Productos destacados">
           <div className="fashion-deck-track">
             {heroProducts.map((product, index) => (
               <Link

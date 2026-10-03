@@ -254,8 +254,8 @@ button,a{-webkit-tap-highlight-color:transparent}
 .button.primary,.button.whatsapp{border-radius:999px!important}
 
 @keyframes fashionReveal{
-  from{opacity:0;transform:translateY(22px)}
-  to{opacity:1;transform:translateY(0)}
+  from{transform:translateY(22px)}
+  to{transform:translateY(0)}
 }
 
 @supports (animation-timeline:view()){

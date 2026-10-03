@@ -7,6 +7,7 @@ import { ProductImage } from '../../components/ProductImage';
 import { WHATSAPP_URL } from '../../../shared/whatsapp-order';
 
 const heroPriority = ['pijama-leopardo', 'body-encaje-neutro', 'bralette-seamless-neutro'];
+const tape = ['REBECA', 'SANTA FE', 'LENCERÍA', 'PIJAMAS', 'TOPS', 'INFANTIL'];
 
 export function HomePage() {
   const { catalog, settings, loading, error } = useStore();
@@ -34,6 +35,9 @@ export function HomePage() {
   return (
     <div className="shop-home">
       <section className="rebeca-hero" aria-label="REBECA Santa Fe">
+        <div className="hero-orbit hero-orbit-a" aria-hidden="true" />
+        <div className="hero-orbit hero-orbit-b" aria-hidden="true" />
+
         <div className="rebeca-hero-copy">
           <p className="hero-eyebrow">@rebeca_santafee · Santa Fe</p>
           <h1>REBECA</h1>
@@ -46,8 +50,14 @@ export function HomePage() {
 
         <div className="hero-gallery">
           {heroProducts.map((product, index) => (
-            <Link className={`hero-shot hero-shot-${index + 1}`} to={`/producto/${product.slug}`} key={product.id} aria-label={`Ver ${product.title}`}>
+            <Link
+              className={`hero-shot hero-shot-${index + 1}`}
+              to={`/producto/${product.slug}`}
+              key={product.id}
+              aria-label={`Ver ${product.title}`}
+            >
               <ProductImage media={product.media[0]} alt={product.title} priority={index === 0} />
+              <span className="hero-shot-index">{String(index + 1).padStart(2, '0')}</span>
               <span className="hero-shot-label">{product.title}</span>
             </Link>
           ))}
@@ -60,9 +70,18 @@ export function HomePage() {
         </div>
       </section>
 
+      <div className="fashion-tape" aria-hidden="true">
+        <div className="fashion-tape-track">
+          {[...tape, ...tape].map((item, index) => <span key={`${item}-${index}`}>{item}<b>✦</b></span>)}
+        </div>
+      </div>
+
       <section className="home-categories" aria-label="Categorías">
         <div className="rail-title">
-          <div><span>Categorías</span></div>
+          <div>
+            <p className="overline">EXPLORAR</p>
+            <span>Categorías</span>
+          </div>
           <Link to="/tienda">Ver todo <ArrowRight aria-hidden="true" /></Link>
         </div>
         <CategoryRail categories={visibleCategories} products={catalog.products} />
@@ -74,13 +93,20 @@ export function HomePage() {
           <Link to="/tienda">{catalog.products.length} productos <ArrowRight aria-hidden="true" /></Link>
         </div>
         <div className="product-grid storefront-grid">
-          {storefrontProducts.map((product, index) => <ProductCard key={product.id} product={product} priority={index < 4} />)}
+          {storefrontProducts.map((product, index) => (
+            <ProductCard key={product.id} product={product} priority={index < 2} />
+          ))}
         </div>
       </section>
 
       <section className="home-instagram">
         <div><p className="overline">INSTAGRAM</p><h2>@rebeca_santafee</h2></div>
-        <a className="instagram-action" href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'} target="_blank" rel="noreferrer">
+        <a
+          className="instagram-action"
+          href={settings?.instagramUrl ?? 'https://www.instagram.com/rebeca_santafee/'}
+          target="_blank"
+          rel="noreferrer"
+        >
           Abrir Instagram <ArrowRight aria-hidden="true" />
         </a>
       </section>

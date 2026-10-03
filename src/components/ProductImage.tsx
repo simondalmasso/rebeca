@@ -9,29 +9,16 @@ export function ProductImage({media,alt,className='',priority=false}:{media?:Pub
   const small=media.smallKey?mediaUrl(media.smallKey):mediaUrl(media.originalKey);
   const large=media.largeKey?mediaUrl(media.largeKey):mediaUrl(media.originalKey);
 
-  if(priority){
-    return <img
-      className={`product-image ${className}`}
-      src={large}
-      width={media.width??1440}
-      height={media.height??1800}
-      alt={media.altText||alt}
-      loading="eager"
-      fetchPriority="high"
-      decoding="async"
-    />;
-  }
-
   return <img
     className={`product-image ${className}`}
-    src={small}
-    srcSet={`${small} 720w, ${large} 1440w`}
-    sizes="(max-width:640px) 76vw,(max-width:1024px) 42vw,25vw"
-    width={media.width??800}
-    height={media.height??1000}
+    src={large}
+    srcSet={`${large} 1440w`}
+    sizes="(max-width:767px) 62vw,(max-width:1024px) 42vw,25vw"
+    width={media.width??1440}
+    height={media.height??1800}
     alt={media.altText||alt}
-    loading="lazy"
-    fetchPriority="auto"
+    loading={priority?'eager':'lazy'}
+    fetchPriority={priority?'high':'auto'}
     decoding="async"
   />;
 }

@@ -885,3 +885,10 @@ body{padding-bottom:86px}
   .footer{margin-top:40px}
 }
 
+
+/* explicit light-hero contrast: overrides legacy dark-hero inheritance */
+.rebeca-hero{color:#1d1d1b}
+.rebeca-hero h1{color:#1d1d1b}
+.rebeca-hero .hero-eyebrow{color:#56514e}
+.rebeca-hero .hero-lead{color:#3f3b39}
+.rebeca-hero .hero-link{color:#1d1d1b}
